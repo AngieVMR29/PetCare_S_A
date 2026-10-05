@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Solicitudes recibidas · PetCare{% endblock %}
+{% block content %}
+<h2>Solicitudes recibidas</h2>
+{% for b in bookings %}
+  <div class="card">
+    <strong>{{ b.service.title }}</strong> — {{ b.owner.first_name }} ({{ b.owner.email }})<br>
+    <span class="muted">{{ b.pet_name }} ({{ b.pet_species }}) · {{ b.date|date:"d/m/Y" }} {{ b.time|time:"H:i" }}</span>
+    {% if b.notes %}<p>{{ b.notes }}</p>{% endif %}
+    <span class="st st-{{ b.status }}">{{ b.get_status_display }}</span>
+    {% if b.status == 'pending' %}
+    <div class="row" style="margin-top:.5rem">
+      <form method="post" action="{% url 'bookings:accept' b.pk %}">{% csrf_token %}<button class="btn">Aceptar</button></form>
+      <form method="post" action="{% url 'bookings:reject' b.pk %}" class="row">{% csrf_token %}
+        <input name="reason" placeholder="Motivo (opcional)" style="width:14rem"><button class="btn danger">Rechazar</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+{% empty %}<p class="muted">No has recibido solicitudes.</p>{% endfor %}
+{% endblock %}

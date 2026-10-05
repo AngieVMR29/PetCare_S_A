@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Avisos · PetCare{% endblock %}
+{% block content %}
+<h2>Avisos</h2>
+{% for n in items %}
+  <div class="card">{{ n.message }}<br><span class="muted">{{ n.created_at|date:"d/m/Y H:i" }}</span></div>
+{% empty %}<p class="muted">No tienes avisos.</p>{% endfor %}
+{% endblock %}

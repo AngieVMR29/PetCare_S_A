@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Mis reservas · PetCare{% endblock %}
+{% block content %}
+<h2>Mis reservas</h2>
+{% for b in bookings %}
+  <div class="card row" style="justify-content:space-between">
+    <div>
+      <strong>{{ b.service.title }}</strong> — {{ b.service.provider.business_name }}<br>
+      <span class="muted">{{ b.pet_name }} ({{ b.pet_species }}) · {{ b.date|date:"d/m/Y" }} {{ b.time|time:"H:i" }}</span><br>
+      <span class="st st-{{ b.status }}">{{ b.get_status_display }}</span>
+      {% if b.rejection_reason %}<span class="muted">Motivo: {{ b.rejection_reason }}</span>{% endif %}
+    </div>
+    {% if b.status == 'pending' or b.status == 'confirmed' %}
+    <form method="post" action="{% url 'bookings:cancel' b.pk %}">{% csrf_token %}<button class="btn danger">Cancelar</button></form>
+    {% endif %}
+  </div>
+{% empty %}<p class="muted">Aún no tienes solicitudes. <a href="{% url 'catalog:search' %}">Busca un servicio</a>.</p>{% endfor %}
+{% endblock %}

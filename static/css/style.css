@@ -1,0 +1,34 @@
+:root{--g:#2f6f4f;--g2:#e6f2ea;--bg:#f7f8f6;--tx:#222;--mut:#666;--bd:#dde3dd;--red:#b3392f;--amb:#b7791f}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+a{color:var(--g)}
+header.nav{background:var(--g);color:#fff;padding:.7rem 1rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+header.nav a{color:#fff;text-decoration:none}
+header.nav .brand{font-weight:700;font-size:1.25rem}
+header.nav nav{display:flex;flex-wrap:wrap;gap:1rem;margin-left:auto;align-items:center}
+header.nav form{display:inline}
+.linkbtn{background:none;border:0;color:#fff;font:inherit;cursor:pointer;padding:0}
+.badge{background:#fff;color:var(--g);border-radius:99px;padding:0 .5rem;font-size:.8rem;font-weight:700}
+main{max-width:960px;margin:0 auto;padding:1rem}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.btn{display:inline-block;background:var(--g);color:#fff;border:0;border-radius:6px;padding:.5rem 1rem;text-decoration:none;cursor:pointer;font:inherit}
+.btn.sec{background:#fff;color:var(--g);border:1px solid var(--g)}
+.btn.danger{background:var(--red)}
+.msg{padding:.6rem 1rem;border-radius:6px;margin-bottom:.5rem;background:var(--g2)}
+.msg.error{background:#fbe5e3;color:var(--red)}
+form p{margin:.6rem 0}
+label{display:block;font-weight:600;margin-bottom:.15rem}
+input,select,textarea{width:100%;padding:.5rem;border:1px solid var(--bd);border-radius:6px;font:inherit}
+.errorlist{color:var(--red);list-style:none;padding:0;margin:.2rem 0}
+.helptext{color:var(--mut);font-size:.85rem}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem;align-items:end}
+.muted{color:var(--mut)}
+.price{font-weight:700;color:var(--g)}
+.st{padding:.1rem .5rem;border-radius:99px;font-size:.85rem;background:#eee}
+.st-pending{background:#fdf1d8;color:var(--amb)}.st-confirmed{background:var(--g2);color:var(--g)}
+.st-rejected,.st-cancelled{background:#fbe5e3;color:var(--red)}
+.hero{text-align:center;padding:2rem 0}
+.hero h1{margin:.2rem}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+@media(max-width:480px){main{padding:.7rem}}

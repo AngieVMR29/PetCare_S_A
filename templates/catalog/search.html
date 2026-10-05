@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Buscar servicios · PetCare{% endblock %}
+{% block content %}
+<h2>Buscar servicios</h2>
+<form method="get" class="card filters">
+  <div>{{ form.service_type.label_tag }}{{ form.service_type }}</div>
+  <div>{{ form.zone.label_tag }}{{ form.zone }}</div>
+  <div>{{ form.min_price.label_tag }}{{ form.min_price }}</div>
+  <div>{{ form.max_price.label_tag }}{{ form.max_price }}</div>
+  <div class="row"><button class="btn">Filtrar</button><a class="btn sec" href="{% url 'catalog:search' %}">Quitar filtros</a></div>
+</form>
+<div class="grid">
+{% for s in services %}
+  <div class="card">
+    <span class="muted">{{ s.get_service_type_display }}</span>
+    <h3>{{ s.title }}</h3>
+    <p>{{ s.provider.business_name }} · {{ s.provider.zone }}</p>
+    <p class="price">${{ s.reference_price|floatformat:0 }} COP</p>
+    <a class="btn" href="{% url 'catalog:provider_detail' s.provider.pk %}">Ver perfil</a>
+  </div>
+{% empty %}
+  <p class="muted">No hay resultados. Prueba ampliando la búsqueda o quitando filtros.</p>
+{% endfor %}
+</div>
+{% endblock %}

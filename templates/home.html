@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <h1>Todo para tu mascota, en un solo lugar</h1>
+  <p class="muted">Encuentra, compara y solicita veterinaria, peluquería, paseos y cuidado temporal.</p>
+</section>
+<div class="grid">
+  {% for value, label in types %}
+    <a class="card" href="{% url 'catalog:search' %}?service_type={{ value }}"><h3>{{ label }}</h3><span class="muted">Ver proveedores →</span></a>
+  {% endfor %}
+</div>
+{% if not user.is_authenticated %}
+<p class="row"><a class="btn" href="{% url 'accounts:register' %}">Crear cuenta</a> <a class="btn sec" href="{% url 'accounts:login' %}">Ingresar</a></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{ provider.business_name }} · PetCare{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>{{ provider.business_name }}</h2>
+  <p>{{ provider.description|default:"Sin descripción." }}</p>
+  <p class="muted">📍 {{ provider.zone }}{% if provider.schedule %} · 🕒 {{ provider.schedule }}{% endif %}{% if provider.phone %} · 📞 {{ provider.phone }}{% endif %}</p>
+</div>
+<h3>Servicios</h3>
+{% for s in services %}
+  <div class="card">
+    <strong>{{ s.title }}</strong> <span class="muted">({{ s.get_service_type_display }})</span>
+    <p>{{ s.description }}</p>
+    <p class="price">${{ s.reference_price|floatformat:0 }} COP <span class="muted">precio de referencia</span></p>
+    {% if user.is_authenticated and user.is_owner %}
+      <a class="btn" href="{% url 'bookings:create' s.pk %}">Solicitar servicio</a>
+    {% elif not user.is_authenticated %}
+      <a class="btn" href="{% url 'accounts:login' %}?next={% url 'bookings:create' s.pk %}">Ingresa para solicitar</a>
+    {% endif %}
+  </div>
+{% empty %}<p class="muted">Este proveedor no tiene servicios activos.</p>{% endfor %}
+{% endblock %}

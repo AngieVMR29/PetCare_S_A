@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Mi panel · PetCare{% endblock %}
+{% block content %}
+<h2>{{ profile.business_name }}</h2>
+<p class="row">
+  <a class="btn sec" href="{% url 'catalog:profile_edit' %}">Editar perfil</a>
+  <a class="btn" href="{% url 'catalog:service_new' %}">Publicar servicio</a>
+  <a class="btn sec" href="{% url 'bookings:received' %}">Solicitudes pendientes: {{ pending }}</a>
+</p>
+{% for s in services %}
+  <div class="card row" style="justify-content:space-between">
+    <div><strong>{{ s.title }}</strong> <span class="muted">{{ s.get_service_type_display }} · ${{ s.reference_price|floatformat:0 }}</span>
+      {% if not s.is_active %}<span class="st">Desactivado</span>{% endif %}</div>
+    <div class="row">
+      <a class="btn sec" href="{% url 'catalog:service_edit' s.pk %}">Editar</a>
+      <form method="post" action="{% url 'catalog:service_toggle' s.pk %}">{% csrf_token %}<button class="btn sec">{% if s.is_active %}Desactivar{% else %}Activar{% endif %}</button></form>
+    </div>
+  </div>
+{% empty %}<p class="muted">Aún no has publicado servicios.</p>{% endfor %}
+{% endblock %}
